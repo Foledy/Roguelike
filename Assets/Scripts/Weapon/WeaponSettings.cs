@@ -9,7 +9,7 @@ namespace Weapon
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public float AttackDelay { get; private set; }
         [field: SerializeField] public float AttackDistance { get; private set; }
-        [field: SerializeField] public bool IsShootableWeapon { get; set; }
+        [field: SerializeField] public bool IsShootableWeapon { get; private set; }
         
         public int AmmoAmount { get; set; }
         public float ReloadDelay { get; set; }
