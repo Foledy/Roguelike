@@ -4,19 +4,12 @@ using UnityEngine;
 using Zenject;
 
 public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
-{
-    public CharacterSettings CharacterSettings { get; private set; }
-    
+{ 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new InputData());
         dstManager.AddComponentData(entity, new MoveData());
-    }
-
-    [Inject]
-    private void Construct(CharacterSettings characterSettings)
-    {
-        CharacterSettings = characterSettings;
+        dstManager.AddComponentData(entity, new BoosterData());
     }
 }
 
@@ -38,4 +31,13 @@ public struct MoveData : IComponentData
 public struct AnimationData : IComponentData
 {
     
+}
+
+public struct BoosterData : IComponentData
+{
+    public bool Health;
+    public bool Protection;
+    public bool Speed;
+    public bool Damage;
+    public bool Weapon;
 }

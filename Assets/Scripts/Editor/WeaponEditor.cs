@@ -1,5 +1,4 @@
 ﻿using UnityEditor;
-using Weapon;
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(WeaponSettings))]
