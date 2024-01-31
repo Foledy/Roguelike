@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Unity.Entities;
+using UnityEngine;
 
-public struct HealthHandler : IComponentData
+public class HealthHandler : MonoBehaviour
 {
     private Queue<KeyValuePair<HealthActionType, float>> _actionsQueue;
 

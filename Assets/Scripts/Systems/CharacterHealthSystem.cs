@@ -14,8 +14,10 @@ public class CharacterHealthSystem : ComponentSystem
     protected override void OnUpdate()
     {
         Entities.With(_healthQuery).ForEach(
-            (Entity entity, HealthAbility health, ref HealthHandler handler, ref BoosterData boosterData) =>
+            (Entity entity, HealthAbility health, ref BoosterData boosterData) =>
             {
+                var handler = health.GetComponent<HealthHandler>();
+                
                 if (handler.TryGetAction(out KeyValuePair<HealthActionType, float> action) == true)
                 {
                     if (action.Key != HealthActionType.None)
