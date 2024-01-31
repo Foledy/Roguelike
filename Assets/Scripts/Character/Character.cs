@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Unity.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class Character : MonoBehaviour

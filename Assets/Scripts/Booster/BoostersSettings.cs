@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Boosters Settings", menuName = "Create new boosters settings", order = 0)]
 public class BoostersSettings : ScriptableObject
