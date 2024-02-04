@@ -67,4 +67,24 @@ public static class Utils
     public static float3 Abs(float3 v) => new float3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
 
     public static float Max(float3 v) => Mathf.Max(v.x, Mathf.Max(v.y, v.z));
+
+    public static IBooster UpdateBooster(this IBooster booster, float deltaTime)
+    {
+        if (booster.IsActive == true)
+        {
+            if (booster.Duration > 0)
+            {
+                booster.Duration -= deltaTime;
+            }
+            else
+            {
+                booster.Duration = 0;
+                booster.IsActive = false;
+            }
+
+            return booster;
+        }
+
+        return null;
+    }
 }

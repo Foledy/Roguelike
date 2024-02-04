@@ -6,7 +6,6 @@ using Zenject;
 
 public class AttackAbility : MonoBehaviour
 {
-    [Inject] private BoostersSettings _boostersSettings;
     [Inject] private WeaponSettings _weaponSettings;
 
     private bool _canAttack;
@@ -17,50 +16,50 @@ public class AttackAbility : MonoBehaviour
         _currentAmmoAmount = _weaponSettings.AmmoAmount;
     }
     
-    public void Attack(bool hasDamageBooster, bool hasWeaponBooster)
+    public void Attack(DamageBooster damageBooster, WeaponBooster weaponBooster)
     {
         if (_weaponSettings.IsShootableWeapon)
         {
-            ShootAttack(hasDamageBooster, hasWeaponBooster);
+            ShootAttack(damageBooster, weaponBooster);
         }
         else
         {
-            MeleeAttack(hasDamageBooster, hasWeaponBooster);
+            MeleeAttack(damageBooster, weaponBooster);
         }
     }
 
-    private void ShootAttack(bool hasDamageBooster, bool hasWeaponBooster)
+    private void ShootAttack(DamageBooster damageBooster, WeaponBooster weaponBooster)
     {
         if (_canAttack == true && _currentAmmoAmount > 0)
         {
             _canAttack = false;
             
-            ShootAttack(hasDamageBooster);
+            ShootAttack(damageBooster);
 
             if (_currentAmmoAmount > 0)
             {
-                StartAttackDelay(hasWeaponBooster);
+                StartAttackDelay(weaponBooster);
             }
             else
             {
-                StartReloadDelay(hasWeaponBooster);
+                StartReloadDelay(weaponBooster);
             }
         }
     }
 
-    private void MeleeAttack(bool hasDamageBooster, bool hasWeaponBooster)
+    private void MeleeAttack(DamageBooster damageBooster, WeaponBooster weaponBooster)
     {
         if (_canAttack == true)
         {
             _canAttack = false;
             
-            MeleeAttack(hasDamageBooster);
+            MeleeAttack(damageBooster);
 
-            StartAttackDelay(hasWeaponBooster);
+            StartAttackDelay(weaponBooster);
         }
     }
 
-    private void ShootAttack(bool hasDamageBooster)
+    private void ShootAttack(DamageBooster damageBooster)
     {
         Observable.Start(() =>
         {
@@ -73,7 +72,7 @@ public class AttackAbility : MonoBehaviour
         });
     }
 
-    private void MeleeAttack(bool hasDamageBooster)
+    private void MeleeAttack(DamageBooster damageBooster)
     {
         Observable.Start(() =>
         {
@@ -86,30 +85,30 @@ public class AttackAbility : MonoBehaviour
         });
     }
     
-    private void StartAttackDelay(bool hasWeaponBooster)
+    private void StartAttackDelay(WeaponBooster weaponBooster)
     {
         Observable.Start(() =>
         {
             var delay = _weaponSettings.AttackDelay;
 
-            if (hasWeaponBooster == true)
+            if (weaponBooster.IsActive == true)
             {
-                delay -= _boostersSettings.ReducingAttackDelay;
+                delay -= weaponBooster.ReducingAttackDelay;
             }
 
             Observable.Timer(TimeSpan.FromSeconds(delay)).Subscribe(_ => { _canAttack = true; });
         });
     }
     
-    private void StartReloadDelay(bool hasWeaponBooster)
+    private void StartReloadDelay(WeaponBooster weaponBooster)
     {
         Observable.Start(() =>
         {
             var delay = _weaponSettings.ReloadDelay;
 
-            if (hasWeaponBooster == true)
+            if (weaponBooster.IsActive == true)
             {
-                delay -= _boostersSettings.ReducingReloadDelay;
+                delay -= weaponBooster.ReducingReloadDelay;
             }
 
             Observable.Timer(TimeSpan.FromSeconds(delay)).Subscribe(_ =>

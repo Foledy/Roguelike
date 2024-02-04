@@ -8,7 +8,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new InputData());
-        dstManager.AddComponentData(entity, new MoveData());
+        dstManager.AddComponentData(entity, new MoveData{ MoveSpeed = 0.2f });
         dstManager.AddComponentData(entity, new BoosterData());
     }
 }
@@ -35,9 +35,8 @@ public struct AnimationData : IComponentData
 
 public struct BoosterData : IComponentData
 {
-    public bool Health;
-    public bool Protection;
-    public bool Speed;
-    public bool Damage;
-    public bool Weapon;
+    public SpeedBooster SpeedBooster { get; set; }
+    public ProtectionBooster ProtectionBooster { get; set; }
+    public DamageBooster DamageBooster { get; set; }
+    public WeaponBooster WeaponBooster { get; set; }
 }

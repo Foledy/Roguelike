@@ -34,9 +34,9 @@ public class CharacterHealthSystem : ComponentSystem
 
                             var protection = character.CharacterSettings.Protection;
                             
-                            if (boosterData.Protection == true)
+                            if (boosterData.ProtectionBooster.IsActive == true)
                             {
-                                protection *= character.BoostersSettings.ProtectionMultiplier;
+                                protection *= boosterData.ProtectionBooster.Multiplier;
                             }
 
                             damage /= protection;

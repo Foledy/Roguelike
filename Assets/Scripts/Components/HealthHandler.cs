@@ -5,7 +5,7 @@ public class HealthHandler : MonoBehaviour
 {
     private Queue<KeyValuePair<HealthActionType, float>> _actionsQueue;
 
-    public HealthHandler(bool init)
+    private void Start()
     {
         _actionsQueue = new Queue<KeyValuePair<HealthActionType, float>>();
     }
@@ -28,7 +28,6 @@ public class HealthHandler : MonoBehaviour
     
     public void AddActionToQueue(HealthActionType type, float value) 
         => _actionsQueue.Enqueue(new KeyValuePair<HealthActionType, float>(type, value));
-
 }
 
 public enum HealthActionType

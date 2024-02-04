@@ -17,7 +17,7 @@ public class CharacterAttackSystem : ComponentSystem
             {
                 if (input.Attack == 1)
                 {
-                    attack.Attack(boosterData.Damage, boosterData.Weapon);
+                    attack.Attack(boosterData.DamageBooster, boosterData.WeaponBooster);
                 }
             });
     }

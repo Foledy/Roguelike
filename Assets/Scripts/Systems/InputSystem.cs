@@ -24,33 +24,28 @@ public class InputSystem : ComponentSystem
 
     protected override void OnStartRunning()
     {
-        _moveAction = new InputAction("Move");
-        _moveAction.AddCompositeBinding("Up", "<Keyboard>/w")
-            .With("Right", "<Keyboard>/d")
-            .With("Left", "<Keyboard>/d")
-            .With("Down", "<Keyboard>/s");
+        _moveAction = new InputAction("Move", binding: "<Gamepad>/rightStick");
+        _moveAction.AddCompositeBinding("Dpad")
+            .With("Up", "<Keyboard>/w")
+            .With("Down", "<Keyboard>/s")
+            .With("Left", "<Keyboard>/a")
+            .With("Right", "<Keyboard>/d");
         
         _moveAction.performed += context => { _moveInput = context.ReadValue<Vector2>(); };
         _moveAction.started += context => { _moveInput = context.ReadValue<Vector2>(); };
         _moveAction.canceled += context => { _moveInput = context.ReadValue<Vector2>(); };
 
-        _sprintAction = new InputAction("Sprint");
-        _sprintAction.AddCompositeBinding("Sprint", "<Keyboard>/leftShift");
-        
+        _sprintAction = new InputAction("Sprint", binding: "<Keyboard>/leftShift");
         _sprintAction.performed += context => { _sprintInput = context.ReadValue<float>(); };
         _sprintAction.started += context => { _sprintInput = context.ReadValue<float>(); };
         _sprintAction.canceled += context => { _sprintInput = context.ReadValue<float>(); };
 
-        _attackAction = new InputAction("Attack");
-        _attackAction.AddCompositeBinding("Attack", "<Mouse>/leftButton");
-        
+        _attackAction = new InputAction("Attack", binding: "<Mouse>/leftButton");
         _attackAction.performed += context => { _attackInput = context.ReadValue<float>(); };
         _attackAction.started += context => { _attackInput = context.ReadValue<float>(); };
         _attackAction.canceled += context => { _attackInput = context.ReadValue<float>(); };
 
-        _reloadAction = new InputAction("Reload");
-        _reloadAction.AddCompositeBinding("Reload", "<Keyboard>/r");
-        
+        _reloadAction = new InputAction("Reload", binding: "<Keyboard>/r");
         _reloadAction.performed += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.started += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.canceled += context => { _reloadInput = context.ReadValue<float>(); };
