@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d7c062bfbc4b24b9fd70fc62925c8f, type: 3}
   m_Name: WeaponBoosterSettings
   m_EditorClassIdentifier: 
-  ReducingAttackDelay: 0.1
-  ReducingReloadDelay: 0.1
+  ReducingAttackDelay: 1.5
+  ReducingReloadDelay: 1.5
   WeaponBoosterDuration: 25

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2283e81bfdb3496f9a7ce0c84bbb580a, type: 3}
+  m_Name: Automatical Rifle
+  m_EditorClassIdentifier: 
+  <WeaponPrefab>k__BackingField: {fileID: 0}
+  <Damage>k__BackingField: 10
+  <AttackDelay>k__BackingField: 0.5
+  <AttackDistance>k__BackingField: 40
+  <IsShootableWeapon>k__BackingField: 1
