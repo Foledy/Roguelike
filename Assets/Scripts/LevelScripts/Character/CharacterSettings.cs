@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Character Settings", menuName = "Create new character", order = 0)]
+[CreateAssetMenu(fileName = "Character Settings", menuName = "Roguelike/Create new character", order = 0)]
 public class CharacterSettings : ScriptableObject
 {
     [field: SerializeField] public GameObject CharacterPrefab { get; private set; }

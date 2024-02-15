@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapon Settings", menuName = "Create new weapon", order = 0)]
+[CreateAssetMenu(fileName = "Weapon Settings", menuName = "Roguelike/Create new weapon", order = 0)]
 public class WeaponSettings : ScriptableObject
 {
     [field: SerializeField] public GameObject WeaponPrefab { get; private set; }

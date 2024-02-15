@@ -31,17 +31,17 @@ public static class Utils
 
         switch (capsule.direction)
         {
-            case 0: // x
+            case 0:
                 radius = Mathf.Max(lossyScale.y, lossyScale.z) * capsule.radius;
                 height = lossyScale.x * capsule.height;
                 dir = capsule.transform.TransformDirection(Vector3.right);
                 break;
-            case 1: // y
+            case 1:
                 radius = Mathf.Max(lossyScale.x, lossyScale.z) * capsule.radius;
                 height = lossyScale.x * capsule.height;
                 dir = capsule.transform.TransformDirection(Vector3.up);
                 break;
-            case 2: // z
+            case 2:
                 radius = Mathf.Max(lossyScale.x, lossyScale.z) * capsule.radius;
                 height = lossyScale.z * capsule.height;
                 dir = capsule.transform.TransformDirection(Vector3.forward);

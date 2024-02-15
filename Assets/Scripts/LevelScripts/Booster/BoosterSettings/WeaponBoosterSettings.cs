@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "new WeaponBoosterSettings", menuName = "Create Booster/Create WeaponBooster Settings", order = 0)]
+[CreateAssetMenu(fileName = "new WeaponBoosterSettings", menuName = "Roguelike/Create Booster/Create WeaponBooster Settings", order = 0)]
 public class WeaponBoosterSettings : ScriptableObject
 {
     [Range(1.5f, 3)] public float ReducingAttackDelay;

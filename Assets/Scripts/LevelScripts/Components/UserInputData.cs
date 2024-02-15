@@ -1,13 +1,13 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-using Zenject;
 
 public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 { 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new InputData());
+        
         dstManager.AddComponentData(entity, new MoveData{ MoveSpeed = 0.2f });
         dstManager.AddComponentData(entity, new BoosterData());
     }
@@ -16,6 +16,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 public struct InputData : IComponentData
 {
     public float2 Move;
+    public Vector2 Rotation;
     public float Sprint;
     public float Attack;
     public float Reload;

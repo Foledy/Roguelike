@@ -1,8 +1,5 @@
-﻿using System;
-using System.Threading;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
-using Zenject;
 
 public class AttackAbility : MonoBehaviour
 {
@@ -126,8 +123,8 @@ public class AttackAbility : MonoBehaviour
         {
             delay /= weaponBooster.ReducingAttackDelay;
         }
-        
-        Observable.Timer(TimeSpan.FromSeconds(delay)).SubscribeOnMainThread().
+
+        Observable.Timer(System.TimeSpan.FromSeconds(delay)).SubscribeOnMainThread().
             Subscribe(_ => { _canAttack = true; }).AddTo(this);
     }
     
@@ -140,7 +137,7 @@ public class AttackAbility : MonoBehaviour
             delay /= weaponBooster.ReducingReloadDelay;
         }
 
-        Observable.Timer(TimeSpan.FromSeconds(delay)).Subscribe(_ =>
+        Observable.Timer(System.TimeSpan.FromSeconds(delay)).Subscribe(_ =>
         {
             _currentAmmoAmount = _weaponSettings.AmmoAmount;
             _canAttack = true;

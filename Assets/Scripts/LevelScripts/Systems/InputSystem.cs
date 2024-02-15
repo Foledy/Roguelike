@@ -8,11 +8,13 @@ public class InputSystem : ComponentSystem
     private EntityQuery _inputQuery;
 
     private InputAction _moveAction;
+    private InputAction _rotationAction;
     private InputAction _sprintAction;
     private InputAction _attackAction;
     private InputAction _reloadAction;
 
     private float2 _moveInput;
+    private Vector2 _rotationInput;
     private float _sprintInput;
     private float _attackInput;
     private float _reloadInput;
@@ -49,8 +51,14 @@ public class InputSystem : ComponentSystem
         _reloadAction.performed += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.started += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.canceled += context => { _reloadInput = context.ReadValue<float>(); };
+
+        _rotationAction = new InputAction("Rotation", binding: "<Mouse>/delta");
+        _rotationAction.performed += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        _rotationAction.started += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        _rotationAction.canceled += context => { _rotationInput = context.ReadValue<Vector2>(); };
         
         _moveAction.Enable();
+        _rotationAction.Enable();
         _sprintAction.Enable();
         _attackAction.Enable();
         _reloadAction.Enable();
@@ -59,6 +67,7 @@ public class InputSystem : ComponentSystem
     protected override void OnStopRunning()
     {
         _moveAction.Disable();
+        _rotationAction.Disable();
         _sprintAction.Disable();
         _attackAction.Disable();
         _reloadAction.Disable();
@@ -70,6 +79,7 @@ public class InputSystem : ComponentSystem
             (Entity entity, ref InputData inputData) =>
             {
                 inputData.Move = _moveInput;
+                inputData.Rotation = _rotationInput;
                 inputData.Sprint = _sprintInput;
                 inputData.Attack = _attackInput;
                 inputData.Reload = _reloadInput;

@@ -13,7 +13,7 @@ public class CharacterSpeedSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        Entities.With(_speedQuery).ForEach(
+        /*Entities.With(_speedQuery).ForEach(
             (Entity entity, Character character, ref MoveData moveData, ref BoosterData boosterData) =>
             {
                 if (boosterData.SpeedBooster.IsActive == true)
@@ -24,6 +24,6 @@ public class CharacterSpeedSystem : ComponentSystem
                 {
                     moveData.MoveSpeed = character.CharacterSettings.MoveSpeed / 100;
                 }
-            });
+            });*/
     }
 }
