@@ -13,6 +13,6 @@ public class WaveDifficultSettings : ScriptableObject
 [Serializable]
 public struct DifficultSettings
 {
-    public int MinIncrease;
     public int MaxIncrease;
+    public int MinIncrease;
 }

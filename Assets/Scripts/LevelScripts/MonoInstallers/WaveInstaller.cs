@@ -8,7 +8,7 @@ public class WaveInstaller : MonoInstaller
     
     public override void InstallBindings()
     {
-        Container.Bind<WaveDifficultSettings>().FromInstance(_difficultSettings).AsSingle().NonLazy();
         Container.Bind<WaveSettings>().FromInstance(_waveSettings).AsSingle().NonLazy();
+        Container.Bind<WaveDifficultSettings>().FromInstance(_difficultSettings).AsSingle().NonLazy();
     }
 }

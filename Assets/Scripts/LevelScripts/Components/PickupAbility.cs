@@ -25,7 +25,7 @@ public class PickupAbility : MonoBehaviour, IConvertGameObjectToEntity, IAbility
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        _entity = entity;
         _dstManager = dstManager;
+        _entity = entity;
     }
 }

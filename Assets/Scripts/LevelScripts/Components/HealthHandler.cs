@@ -11,8 +11,6 @@ public class HealthHandler : MonoBehaviour
         _actionsQueue = new Queue<KeyValuePair<HealthActionType, float>>();
     }
 
-    public void ClearQueue() => _actionsQueue.Clear();
-
     public bool TryGetAction(out KeyValuePair<HealthActionType, float> action)
     {
         if (_actionsQueue.Count > 0)
@@ -26,6 +24,8 @@ public class HealthHandler : MonoBehaviour
         
         return false;
     }
+
+    public void ClearQueue() => _actionsQueue.Clear();
     
     public void AddActionToQueue(HealthActionType type, float value) 
         => _actionsQueue.Enqueue(new KeyValuePair<HealthActionType, float>(type, value));

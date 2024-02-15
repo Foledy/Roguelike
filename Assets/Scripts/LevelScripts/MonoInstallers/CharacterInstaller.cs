@@ -7,8 +7,8 @@ public class CharacterInstaller : MonoInstaller
     [SerializeField] private HealthBoosterSettings _healthBoosterSettings;
     [SerializeField] private SpeedBoosterSettings _speedBoosterSettings;
     [SerializeField] private ProtectionBoosterSettings _protectionBoosterSettings;
-    [SerializeField] private WeaponBoosterSettings _weaponBoosterSettings;
     [SerializeField] private DamageBoosterSettings _damageBoosterSettings;
+    [SerializeField] private WeaponBoosterSettings _weaponBoosterSettings;
     
     public override void InstallBindings()
     {

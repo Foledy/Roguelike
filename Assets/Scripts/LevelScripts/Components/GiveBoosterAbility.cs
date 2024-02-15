@@ -4,6 +4,7 @@ using UnityEngine;
 public class GiveBoosterAbility : MonoBehaviour, IAbilityTarget
 {
     [SerializeField] private BoosterType _boosterType;
+    
     public List<Collider> Colliders { get; set; }
 
     public void Execute()

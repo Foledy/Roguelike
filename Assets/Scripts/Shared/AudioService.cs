@@ -8,7 +8,6 @@ public class AudioService : IAudioService
     public void Init(IDataService dataService)
     {
         _dataService = dataService;
-        
         _dataService.Load(data => _data = data);
     }
 

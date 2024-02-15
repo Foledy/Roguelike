@@ -18,8 +18,8 @@ public class SettingsData
     [Serializable]
     public struct VolumeData
     {
-        public float Music;
         public float Vfx;
+        public float Music;
 
         public VolumeData(float music, float vfx)
         {

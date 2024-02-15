@@ -12,8 +12,8 @@ public class WeaponEditor : Editor
 
         if (settings.IsShootableWeapon == true)
         {
-            settings.AmmoAmount = EditorGUILayout.IntField("Ammo amount:", settings.AmmoAmount);
             settings.ReloadDelay = EditorGUILayout.FloatField("Reload delay:", settings.ReloadDelay);
+            settings.AmmoAmount = EditorGUILayout.IntField("Ammo amount:", settings.AmmoAmount);
         }
     }
 }

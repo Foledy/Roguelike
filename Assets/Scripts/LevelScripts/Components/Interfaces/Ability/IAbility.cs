@@ -1,4 +1,4 @@
-﻿public interface IAbility
+﻿public interface IAbility 
 {
     void Execute();
 }

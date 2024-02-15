@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadingEntry : MonoBehaviour, ISceneLoadHandler<CharacterSettings>
 {
-    private TMP_Text _text;
     private AsyncOperation _operation;
+    private TMP_Text _text;
     
     public void OnSceneLoaded(CharacterSettings character)
     {

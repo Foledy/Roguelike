@@ -12,7 +12,7 @@
         HealthBoosterSettings = health;
         SpeedBoosterSettings = speed;
         ProtectionBoosterSettings = protection;
-        WeaponBoosterSettings = weapon;
         DamageBoosterSettings = damage;
+        WeaponBoosterSettings = weapon;
     }
 }

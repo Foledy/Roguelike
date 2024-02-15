@@ -1,4 +1,4 @@
-﻿public interface IShootingWeapon : IWeapon
+﻿public interface IShootingWeapon : IWeapon 
 {
     void Reload();
 }

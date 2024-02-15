@@ -4,9 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(HealthHandler))]
 public class HealthAbility : MonoBehaviour
 {
-    public float Health { get; private set; }
-
     public event Action OnHealthChanged;
+    
+    public float Health { get; private set; }
 
     public void TakeDamage(float value)
     {

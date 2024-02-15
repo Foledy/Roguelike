@@ -23,7 +23,6 @@ public class EnemyAISystem : ComponentSystem
                 }
 
                 var enemyPos = enemy.transform.position;
-                
                 var target = GetTargetPosition(enemyPos);
                 
                 if (target == enemyPos * 100)

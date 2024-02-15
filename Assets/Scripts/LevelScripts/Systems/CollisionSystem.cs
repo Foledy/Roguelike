@@ -26,9 +26,9 @@ public class CollisionSystem : ComponentSystem
                         float3 position = gameObject.transform.position;
                         Quaternion rotation = gameObject.transform.rotation;
                         
-                        abilityCollision.Colliders?.Clear();
-
                         int size = 0;
+
+                        abilityCollision.Colliders?.Clear();
 
                         switch (colliderData.ColliderType)
                         {

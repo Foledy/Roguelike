@@ -21,8 +21,8 @@ public class WaveHandler : MonoBehaviour
     private int _shooterAmount;
     private float _timeToPassWave;
     private Result _result;
-    private List<Vector3> _meleeSpawnPoints;
     private List<Vector3> _shooterSpawnPoints;
+    private List<Vector3> _meleeSpawnPoints;
 
     private void Awake()
     {

@@ -5,5 +5,5 @@ public enum EnemyType
 {
     WeakMelee = 0,
     GiantMelee = 1,
-    Shooter = 2
+    Shooter = 2,
 }

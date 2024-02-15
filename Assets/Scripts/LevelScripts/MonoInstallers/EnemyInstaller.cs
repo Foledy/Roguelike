@@ -15,12 +15,10 @@ public class EnemyInstaller : MonoInstaller
             .WithInitialSize(10)
             .FromComponentInNewPrefab(_weekEnemyPrefab)
             .UnderTransformGroup("WeekEnemies");
-        
         Container.BindMemoryPool<GiantEnemy, GiantEnemy.Pool>()
             .WithInitialSize(10)
             .FromComponentInNewPrefab(_giantEnemyPrefab)
             .UnderTransformGroup("GiantEnemies");
-        
         Container.BindMemoryPool<ShooterEnemy, ShooterEnemy.Pool>()
             .WithInitialSize(10)
             .FromComponentInNewPrefab(_shooterEnemyPrefab)

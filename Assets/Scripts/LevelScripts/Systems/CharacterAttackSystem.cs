@@ -7,8 +7,8 @@ public class CharacterAttackSystem : ComponentSystem
 
     protected override void OnCreate()
     {
-        _attackQuery = GetEntityQuery(ComponentType.ReadOnly<UserInputData>(), ComponentType.ReadOnly<InputData>(),
-            ComponentType.ReadOnly<AttackAbility>(), ComponentType.ReadOnly<BoosterData>());
+        _attackQuery = GetEntityQuery(ComponentType.ReadOnly<UserInputData>(),ComponentType.ReadOnly<AttackAbility>(),
+            ComponentType.ReadOnly<InputData>(), ComponentType.ReadOnly<BoosterData>());
     }
 
     protected override void OnUpdate()

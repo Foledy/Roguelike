@@ -24,6 +24,7 @@ public class BoosterSystem : ComponentSystem
                         case BoosterType.Health:
                             character.GetComponent<HealthHandler>().AddActionToQueue(HealthActionType.Heal,
                                 character.BoostersSettings.HealthBoosterSettings.HealthRecovery);
+                            
                             break;
                         case BoosterType.Speed:
                             var speedBooster = boosterData.SpeedBooster;
@@ -32,7 +33,6 @@ public class BoosterSystem : ComponentSystem
                                 .SpeedBoosterSettings.SpeedBoosterDuration;
                             speedBooster.Multiplier = character.BoostersSettings.SpeedBoosterSettings.SpeedMultiplier;
                             speedBooster.IsActive = true;
-
                             boosterData.SpeedBooster = speedBooster;
                             
                             break;

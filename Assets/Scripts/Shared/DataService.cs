@@ -29,6 +29,7 @@ public class DataService : IDataService
             };
             
             callback?.Invoke(result);
+            
             return;
         }
 

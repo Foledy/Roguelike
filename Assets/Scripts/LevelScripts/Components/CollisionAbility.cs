@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class CollisionAbility : MonoBehaviour, IConvertGameObjectToEntity
 {
-    [SerializeField] private Collider _collider;
     [SerializeField] private List<MonoBehaviour> _collisionActions;
+    [SerializeField] private Collider _collider;
 
     public List<Collider> Colliders { get; set; }
     

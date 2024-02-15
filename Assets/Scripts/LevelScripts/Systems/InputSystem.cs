@@ -57,8 +57,8 @@ public class InputSystem : ComponentSystem
         _rotationAction.started += context => { _rotationInput = context.ReadValue<Vector2>(); };
         _rotationAction.canceled += context => { _rotationInput = context.ReadValue<Vector2>(); };
         
-        _moveAction.Enable();
         _rotationAction.Enable();
+        _moveAction.Enable();
         _sprintAction.Enable();
         _attackAction.Enable();
         _reloadAction.Enable();

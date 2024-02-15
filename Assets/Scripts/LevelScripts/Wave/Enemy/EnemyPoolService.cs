@@ -58,7 +58,6 @@ public class EnemyPoolService
         }
 
         EnemiesLeft -= 1;
-
         OnEnemyKilled?.Invoke(type);
 
         if (EnemiesLeft == 0)

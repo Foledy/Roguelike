@@ -7,7 +7,7 @@ public class CharacterHealthSystem : ComponentSystem
 
     protected override void OnCreate()
     {
-        _healthQuery = GetEntityQuery(ComponentType.ReadOnly<HealthAbility>(), ComponentType.ReadOnly<HealthHandler>(),
+        _healthQuery = GetEntityQuery(ComponentType.ReadOnly<HealthHandler>(), ComponentType.ReadOnly<HealthAbility>(),
             ComponentType.ReadOnly<BoosterData>());
     }
 

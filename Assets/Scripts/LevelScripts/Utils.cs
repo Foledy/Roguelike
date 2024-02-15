@@ -25,9 +25,9 @@ public static class Utils
         var transform = capsule.transform;
         var center = (float3)transform.TransformPoint(capsule.center);
         radius = 0f;
-        float height = 0f;
-        float3 lossyScale = Abs(transform.lossyScale);
-        float3 dir = float3.zero;
+        var height = 0f;
+        var lossyScale = Abs(transform.lossyScale);
+        var dir = float3.zero;
 
         switch (capsule.direction)
         {

@@ -58,8 +58,8 @@ public class WaveTimer : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             
-            timeLeft -= 1;
             OnTimeDecreased?.Invoke();
+            timeLeft -= 1;
         }
 
         _routine = null;

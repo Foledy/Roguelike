@@ -5,8 +5,8 @@ public class AttackAbility : MonoBehaviour
 {
     [SerializeField] private WeaponSettings _weaponSettings;
 
-    private bool _canAttack;
     private int _currentAmmoAmount;
+    private bool _canAttack;
 
     private void OnEnable()
     {

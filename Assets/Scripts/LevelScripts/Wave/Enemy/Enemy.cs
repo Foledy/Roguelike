@@ -9,8 +9,8 @@ public abstract class Enemy : MonoBehaviour, IConvertGameObjectToEntity
 {
     [SerializeField] private float _stoppingDistance;
     
-    private NavMeshAgent _agent;
     private Transform _currentTarget;
+    private NavMeshAgent _agent;
     
     private void Start()
     {

@@ -9,13 +9,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void OnSelectPlayerClicked(CharacterSettings settings) => _characterSettings = settings;
     
-    public void OnPlayClicked()
-    {
-        LoadingScene.Load(_characterSettings);
-    }
+    public void OnPlayClicked() => LoadingScene.Load(_characterSettings);
 
-    public void OnQuitClicked()
-    {
-        Application.Quit();
-    }
+    public void OnQuitClicked() => Application.Quit();
 }

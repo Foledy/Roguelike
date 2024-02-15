@@ -5,6 +5,6 @@ public class EnemySettings : ScriptableObject
 {
     public GameObject EnemyPrefab;
     public EnemyType EnemyType;
-    public float Speed;
     public float Damage;
+    public float Speed;
 }

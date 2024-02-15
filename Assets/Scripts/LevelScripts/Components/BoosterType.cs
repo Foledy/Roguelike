@@ -5,5 +5,5 @@
     Speed = 2,
     Protection = 3,
     Weapon = 4,
-    Damage = 5
+    Damage = 5,
 }

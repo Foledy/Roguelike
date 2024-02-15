@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ResultEntry : MonoBehaviour, ISceneLoadHandler<Result>
 {
-    [SerializeField] private TMP_Text _livedSeconds;
     [SerializeField] private TMP_Text _weekKilled;
     [SerializeField] private TMP_Text _giantKilled;
     [SerializeField] private TMP_Text _shooterKilled;
+    [SerializeField] private TMP_Text _livedSeconds;
     
     public void OnSceneLoaded(Result result)
     {

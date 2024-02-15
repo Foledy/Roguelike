@@ -6,8 +6,8 @@ using Zenject;
 public class AudioController : MonoBehaviour
 {
     [Header("Audio Sources")]
-    [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioSource _vfxSource;
+    [SerializeField] private AudioSource _musicSource;
 
     [Header("Sliders")] 
     [SerializeField] private Slider _musicSlider;

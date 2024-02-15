@@ -6,8 +6,8 @@ public class RotationSystem : ComponentSystem
 
     protected override void OnCreate()
     {
-        _rotationQuery = GetEntityQuery(ComponentType.ReadOnly<UserInputData>(),
-            ComponentType.ReadOnly<CameraRotator>(), ComponentType.ReadOnly<InputData>());
+        _rotationQuery = GetEntityQuery(ComponentType.ReadOnly<CameraRotator>(), 
+            ComponentType.ReadOnly<UserInputData>(), ComponentType.ReadOnly<InputData>());
     }
 
     protected override void OnUpdate()

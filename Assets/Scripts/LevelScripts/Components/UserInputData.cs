@@ -38,6 +38,6 @@ public struct BoosterData : IComponentData
 {
     public SpeedBooster SpeedBooster { get; set; }
     public ProtectionBooster ProtectionBooster { get; set; }
-    public DamageBooster DamageBooster { get; set; }
     public WeaponBooster WeaponBooster { get; set; }
+    public DamageBooster DamageBooster { get; set; }
 }

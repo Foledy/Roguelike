@@ -8,8 +8,6 @@ public class LevelEntry : MonoBehaviour, ISceneLoadHandler<CharacterSettings>
     public void OnSceneLoaded(CharacterSettings character)
     {
         SpawnPlayer(character.CharacterPrefab);
-        
-        
     }
 
     private void SpawnPlayer(GameObject prefab) => Instantiate(prefab, _playerSpawn.position, Quaternion.identity);
