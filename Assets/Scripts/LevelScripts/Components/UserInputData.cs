@@ -8,7 +8,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     {
         dstManager.AddComponentData(entity, new InputData());
         
-        dstManager.AddComponentData(entity, new MoveData{ MoveSpeed = 0.2f });
+        dstManager.AddComponentData(entity, new MoveData{ MoveSpeed = 12f });
         dstManager.AddComponentData(entity, new BoosterData());
     }
 }
@@ -17,6 +17,7 @@ public struct InputData : IComponentData
 {
     public float2 Move;
     public Vector2 Rotation;
+    public float Jump;
     public float Sprint;
     public float Attack;
     public float Reload;
@@ -26,7 +27,6 @@ public struct MoveData : IComponentData
 {
     public float MoveSpeed;
     public float SprintBoost;
-    public float RotationSpeed;
 }
 
 public struct AnimationData : IComponentData

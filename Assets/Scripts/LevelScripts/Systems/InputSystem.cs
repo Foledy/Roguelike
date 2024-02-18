@@ -52,12 +52,12 @@ public class InputSystem : ComponentSystem
         _reloadAction.started += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.canceled += context => { _reloadInput = context.ReadValue<float>(); };
 
-        _rotationAction = new InputAction("Rotation", binding: "<Mouse>/delta");
-        _rotationAction.performed += context => { _rotationInput = context.ReadValue<Vector2>(); };
-        _rotationAction.started += context => { _rotationInput = context.ReadValue<Vector2>(); };
-        _rotationAction.canceled += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        //_rotationAction = new InputAction("Rotation", binding: "<Mouse>/delta");
+        //_rotationAction.performed += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        //_rotationAction.started += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        //_rotationAction.canceled += context => { _rotationInput = context.ReadValue<Vector2>(); };
         
-        _rotationAction.Enable();
+        //_rotationAction.Enable();
         _moveAction.Enable();
         _sprintAction.Enable();
         _attackAction.Enable();
@@ -67,7 +67,7 @@ public class InputSystem : ComponentSystem
     protected override void OnStopRunning()
     {
         _moveAction.Disable();
-        _rotationAction.Disable();
+        //_rotationAction.Disable();
         _sprintAction.Disable();
         _attackAction.Disable();
         _reloadAction.Disable();

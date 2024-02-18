@@ -7,8 +7,13 @@ public class LevelEntry : MonoBehaviour, ISceneLoadHandler<CharacterSettings>
     
     public void OnSceneLoaded(CharacterSettings character)
     {
-        SpawnPlayer(character.CharacterPrefab);
+        SpawnPlayer(character);
     }
 
-    private void SpawnPlayer(GameObject prefab) => Instantiate(prefab, _playerSpawn.position, Quaternion.identity);
+    private void SpawnPlayer(CharacterSettings character)
+    {
+        var player = Instantiate(character.CharacterPrefab, _playerSpawn.position, Quaternion.identity).GetComponent<Character>();
+        
+        player.SetCharacter(character);
+    }
 }

@@ -14,6 +14,8 @@ public class Character : MonoBehaviour
         _boosterQueue = new Queue<BoosterType>();
     }
 
+    public void SetCharacter(CharacterSettings character) => CharacterSettings = character;
+
     public void AddBoosterToQueue(BoosterType type)
     {
         _boosterQueue.Enqueue(type);
