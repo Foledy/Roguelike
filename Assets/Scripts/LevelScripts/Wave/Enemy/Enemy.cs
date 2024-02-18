@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using Zenject;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class Enemy : MonoBehaviour, IConvertGameObjectToEntity
+public class Enemy : MonoBehaviour, IConvertGameObjectToEntity
 {
     [SerializeField] private float _stoppingDistance;
     
