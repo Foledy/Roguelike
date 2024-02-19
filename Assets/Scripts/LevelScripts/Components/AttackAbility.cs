@@ -61,30 +61,29 @@ public class AttackAbility : MonoBehaviour
 
     private void ShootAttack(DamageBooster damageBooster)
     {
-        Observable.Start(() =>
+        var ray = new Ray(transform.position, transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, _weaponSettings.AttackDistance) == true)
         {
-            var ray = new Ray(transform.position, transform.forward);
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, _weaponSettings.AttackDistance) == true)
+            Debug.Log("Attacking.....");
+            if (hitInfo.collider.TryGetComponent(out HealthHandler health) == true)
             {
-                if (hitInfo.collider.TryGetComponent(out HealthHandler health) == true)
+                Debug.Log("Attacking.....");
+                if (hitInfo.collider.gameObject == gameObject)
                 {
-                    if (hitInfo.collider.gameObject == gameObject)
-                    {
-                        return;
-                    }
-
-                    var damage = _weaponSettings.Damage;
-
-                    if (damageBooster.IsActive == true)
-                    {
-                        damage *= damageBooster.Multiplier;
-                    }
-                    
-                    health.AddActionToQueue(HealthActionType.TakeDamage, damage);
+                    return;
                 }
+
+                var damage = _weaponSettings.Damage;
+
+                if (damageBooster.IsActive == true)
+                {
+                    damage *= damageBooster.Multiplier;
+                }
+                
+                health.AddActionToQueue(HealthActionType.TakeDamage, damage);
             }
-        });
+        }
     }
 
     private void MeleeAttack(DamageBooster damageBooster)

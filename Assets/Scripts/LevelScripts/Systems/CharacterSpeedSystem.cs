@@ -18,11 +18,11 @@ public class CharacterSpeedSystem : ComponentSystem
             {
                 if (boosterData.SpeedBooster.IsActive == true)
                 {
-                    moveData.MoveSpeed = character.CharacterSettings.MoveSpeed / 100 * boosterData.SpeedBooster.Multiplier;
+                    moveData.MoveSpeed = character.CharacterSettings.MoveSpeed * boosterData.SpeedBooster.Multiplier;
                 }
                 else
                 {
-                    moveData.MoveSpeed = character.CharacterSettings.MoveSpeed / 100;
+                    moveData.MoveSpeed = character.CharacterSettings.MoveSpeed;
                 }
             });
     }

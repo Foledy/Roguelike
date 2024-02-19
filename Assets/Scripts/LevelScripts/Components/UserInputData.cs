@@ -8,7 +8,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     {
         dstManager.AddComponentData(entity, new InputData());
         
-        dstManager.AddComponentData(entity, new MoveData{ MoveSpeed = 12f });
+        dstManager.AddComponentData(entity, new MoveData{ MoveSpeed = 12f, SprintBoost = 1.5f });
         dstManager.AddComponentData(entity, new BoosterData());
     }
 }

@@ -9,12 +9,14 @@ public class InputSystem : ComponentSystem
 
     private InputAction _moveAction;
     private InputAction _rotationAction;
+    private InputAction _jumpAction;
     private InputAction _sprintAction;
     private InputAction _attackAction;
     private InputAction _reloadAction;
 
     private float2 _moveInput;
     private Vector2 _rotationInput;
+    private float _jumpInput;
     private float _sprintInput;
     private float _attackInput;
     private float _reloadInput;
@@ -42,6 +44,11 @@ public class InputSystem : ComponentSystem
         _sprintAction.started += context => { _sprintInput = context.ReadValue<float>(); };
         _sprintAction.canceled += context => { _sprintInput = context.ReadValue<float>(); };
 
+        _jumpAction = new InputAction("Jump", binding: "<Keyboard>/space");
+        _jumpAction.performed += context => { _jumpInput = context.ReadValue<float>(); };
+        _jumpAction.started += context => { _jumpInput = context.ReadValue<float>(); };
+        _jumpAction.canceled += context => { _jumpInput = context.ReadValue<float>(); };
+
         _attackAction = new InputAction("Attack", binding: "<Mouse>/leftButton");
         _attackAction.performed += context => { _attackInput = context.ReadValue<float>(); };
         _attackAction.started += context => { _attackInput = context.ReadValue<float>(); };
@@ -52,13 +59,14 @@ public class InputSystem : ComponentSystem
         _reloadAction.started += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.canceled += context => { _reloadInput = context.ReadValue<float>(); };
 
-        //_rotationAction = new InputAction("Rotation", binding: "<Mouse>/delta");
-        //_rotationAction.performed += context => { _rotationInput = context.ReadValue<Vector2>(); };
-        //_rotationAction.started += context => { _rotationInput = context.ReadValue<Vector2>(); };
-        //_rotationAction.canceled += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        _rotationAction = new InputAction("Rotation", binding: "<Mouse>/delta");
+        _rotationAction.performed += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        _rotationAction.started += context => { _rotationInput = context.ReadValue<Vector2>(); };
+        _rotationAction.canceled += context => { _rotationInput = context.ReadValue<Vector2>(); };
         
-        //_rotationAction.Enable();
         _moveAction.Enable();
+        _rotationAction.Enable();
+        _jumpAction.Enable();
         _sprintAction.Enable();
         _attackAction.Enable();
         _reloadAction.Enable();
@@ -67,7 +75,8 @@ public class InputSystem : ComponentSystem
     protected override void OnStopRunning()
     {
         _moveAction.Disable();
-        //_rotationAction.Disable();
+        _rotationAction.Disable();
+        _jumpAction.Disable();
         _sprintAction.Disable();
         _attackAction.Disable();
         _reloadAction.Disable();
@@ -80,6 +89,7 @@ public class InputSystem : ComponentSystem
             {
                 inputData.Move = _moveInput;
                 inputData.Rotation = _rotationInput;
+                inputData.Jump = _jumpInput;
                 inputData.Sprint = _sprintInput;
                 inputData.Attack = _attackInput;
                 inputData.Reload = _reloadInput;
