@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +9,15 @@ public class WaveTimer : MonoBehaviour
     [SerializeField] private TMP_Text _text;
 
     public System.Action OnTimeUp;
-    public System.Action OnTimeDecreased;
+    public System.Action<float> OnTimeDecreased;
 
     private Coroutine _routine;
 
     public void Enable(float seconds)
     {
+        if(_routine != null)
+            StopCoroutine(_routine);
+        
         _slider.maxValue = seconds;
         _slider.value = seconds;
 
@@ -56,10 +58,12 @@ public class WaveTimer : MonoBehaviour
     {
         while (timeLeft > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.01f);
             
-            OnTimeDecreased?.Invoke();
-            timeLeft -= 1;
+            OnTimeDecreased?.Invoke(0.01f);
+            timeLeft -= 0.01f;
+            _slider.value = timeLeft;
+            _text.text = SecondsIntoMinutes((int)timeLeft);
         }
 
         _routine = null;

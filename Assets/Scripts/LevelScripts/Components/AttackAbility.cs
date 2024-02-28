@@ -1,92 +1,86 @@
 ﻿using UniRx;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class AttackAbility : MonoBehaviour
 {
     [SerializeField] private WeaponSettings _weaponSettings;
+    [SerializeField] private AudioSource _audio;
+    [SerializeField] private Transform _muzzleTransform;
+    [SerializeField] private LayerMask _playerLayer;
 
+    public float AttackDistance => _weaponSettings.AttackDistance;
+    
     private int _currentAmmoAmount;
     private bool _canAttack;
+    private Camera _camera;
 
     private void OnEnable()
     {
+        _camera = Camera.main;
         _currentAmmoAmount = _weaponSettings.AmmoAmount;
         _canAttack = true;
     }
 
-    public void Attack(DamageBooster damageBooster, WeaponBooster weaponBooster)
+    public void Attack(float damageMultiplier, float delayDivider)
     {
-        if (_weaponSettings.IsShootableWeapon)
+        if (_weaponSettings.IsShootingWeapon)
         {
-            ShootAttack(damageBooster, weaponBooster);
+            ShootAttack(damageMultiplier, delayDivider);
         }
         else
         {
-            MeleeAttack(damageBooster, weaponBooster);
+            MeleeAttack(damageMultiplier, delayDivider);
         }
     }
 
-    private void ShootAttack(DamageBooster damageBooster, WeaponBooster weaponBooster)
+    private void ShootAttack(float damageMultiplier, float delayDivider)
     {
-        if (_canAttack == true && _currentAmmoAmount > 0)
-        {
-            _canAttack = false;
+        if (_canAttack != true || _currentAmmoAmount <= 0) return;
+        
+        _canAttack = false;
+        _currentAmmoAmount -= 1;
             
-            ShootAttack(damageBooster);
+        PerformShootAttack(damageMultiplier);
+        PlayAttackClip(_weaponSettings.AttackClip);
+        PlayVFX();
 
-            _currentAmmoAmount -= 1;
-
-            if (_currentAmmoAmount > 0)
-            {
-                StartAttackDelay(weaponBooster);
-            }
-            else
-            {
-                StartReloadDelay(weaponBooster);
-            }
+        if (_currentAmmoAmount > 0)
+        {
+            StartAttackDelay(damageMultiplier);
+        }
+        else
+        {
+            StartReloadDelay(delayDivider);
         }
     }
 
-    private void MeleeAttack(DamageBooster damageBooster, WeaponBooster weaponBooster)
+    private void MeleeAttack(float damageMultiplier, float delayDivider)
     {
         if (_canAttack == true)
         {
             _canAttack = false;
             
-            MeleeAttack(damageBooster);
+            PerformMeleeAttack(damageMultiplier);
 
-            StartAttackDelay(weaponBooster);
+            StartAttackDelay(delayDivider);
         }
     }
 
-    private void ShootAttack(DamageBooster damageBooster)
+    private void PerformShootAttack(float damageMultiplier)
     {
-        var ray = new Ray(transform.position, transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, _weaponSettings.AttackDistance) == true)
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out var hitInfo, _weaponSettings.AttackDistance, ~_playerLayer) == true)
         {
-            Debug.Log("Attacking.....");
             if (hitInfo.collider.TryGetComponent(out HealthHandler health) == true)
             {
-                Debug.Log("Attacking.....");
-                if (hitInfo.collider.gameObject == gameObject)
-                {
-                    return;
-                }
-
-                var damage = _weaponSettings.Damage;
-
-                if (damageBooster.IsActive == true)
-                {
-                    damage *= damageBooster.Multiplier;
-                }
+                var damage = _weaponSettings.Damage * damageMultiplier;
                 
                 health.AddActionToQueue(HealthActionType.TakeDamage, damage);
             }
         }
     }
 
-    private void MeleeAttack(DamageBooster damageBooster)
+    private void PerformMeleeAttack(float damageMultiplier)
     {
         Observable.Start(() =>
         {
@@ -101,12 +95,7 @@ public class AttackAbility : MonoBehaviour
                         continue;
                     }
                     
-                    var damage = _weaponSettings.Damage;
-
-                    if (damageBooster.IsActive == true)
-                    {
-                        damage *= damageBooster.Multiplier;
-                    }
+                    var damage = _weaponSettings.Damage * damageMultiplier;
                     
                     health.AddActionToQueue(HealthActionType.TakeDamage, damage);
                 }
@@ -114,32 +103,32 @@ public class AttackAbility : MonoBehaviour
         });
     }
     
-    private void StartAttackDelay(WeaponBooster weaponBooster)
+    private void StartAttackDelay(float delayDivider)
     {
-        var delay = _weaponSettings.AttackDelay;
-
-        if (weaponBooster.IsActive == true)
-        {
-            delay /= weaponBooster.ReducingAttackDelay;
-        }
+        var delay = _weaponSettings.AttackDelay / delayDivider;
 
         Observable.Timer(System.TimeSpan.FromSeconds(delay)).SubscribeOnMainThread().
             Subscribe(_ => { _canAttack = true; }).AddTo(this);
     }
-    
-    private void StartReloadDelay(WeaponBooster weaponBooster)
-    {
-        var delay = _weaponSettings.ReloadDelay;
 
-        if (weaponBooster.IsActive == true)
-        {
-            delay /= weaponBooster.ReducingReloadDelay;
-        }
+    private void StartReloadDelay(float delayDivider)
+    {
+        var delay = _weaponSettings.ReloadDelay / delayDivider;
 
         Observable.Timer(System.TimeSpan.FromSeconds(delay)).Subscribe(_ =>
         {
             _currentAmmoAmount = _weaponSettings.AmmoAmount;
             _canAttack = true;
         });
+    }
+
+    private void PlayAttackClip(AudioClip clip)
+    {
+        _audio.PlayOneShot(clip);
+    }
+
+    private void PlayVFX()
+    {
+        var flash = Instantiate(_weaponSettings.MuzzlePrefab, _muzzleTransform);
     }
 }

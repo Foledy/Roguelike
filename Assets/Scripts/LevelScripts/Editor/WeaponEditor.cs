@@ -10,7 +10,7 @@ public class WeaponEditor : Editor
         
         var settings = target as WeaponSettings;
 
-        if (settings.IsShootableWeapon == true)
+        if (settings.IsShootingWeapon == true)
         {
             settings.ReloadDelay = EditorGUILayout.FloatField("Reload delay:", settings.ReloadDelay);
             settings.AmmoAmount = EditorGUILayout.IntField("Ammo amount:", settings.AmmoAmount);

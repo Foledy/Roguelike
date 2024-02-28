@@ -8,13 +8,13 @@ public class CharacterHealthSystem : ComponentSystem
     protected override void OnCreate()
     {
         _healthQuery = GetEntityQuery(ComponentType.ReadOnly<HealthHandler>(), ComponentType.ReadOnly<HealthAbility>(),
-            ComponentType.ReadOnly<BoosterData>());
+            ComponentType.ReadOnly<UserInputData>());
     }
 
     protected override void OnUpdate()
     {
         Entities.With(_healthQuery).ForEach(
-            (Entity entity, HealthAbility health, ref BoosterData boosterData) =>
+            (Entity entity, HealthAbility health) =>
             {
                 var handler = health.GetComponent<HealthHandler>();
                 
@@ -31,12 +31,11 @@ public class CharacterHealthSystem : ComponentSystem
                         else
                         {
                             var damage = action.Value;
-
                             var protection = character.CharacterSettings.Protection;
-                            
-                            if (boosterData.ProtectionBooster.IsActive == true)
+
+                            if (character.BoosterData.Protection.IsActive)
                             {
-                                protection *= boosterData.ProtectionBooster.Multiplier;
+                                protection *= character.BoostersParameters.Protection.ProtectionMultiplier;
                             }
 
                             damage /= protection;

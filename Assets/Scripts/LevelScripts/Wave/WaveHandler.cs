@@ -8,49 +8,37 @@ using Random = UnityEngine.Random;
 
 public class WaveHandler : MonoBehaviour
 {
-    [SerializeField] private Transform _meleeEnemySpawnParent;
-    [SerializeField] private Transform _shooterEnemySpawnParent;
     [SerializeField] private WaveTimer _waveTimer;
+    [SerializeField] private EnemySpawner _spawner;
     
-    [Inject] private EnemyPoolService _enemyService;
     [Inject] private WaveDifficultSettings _difficultSettings;
     [Inject] private WaveSettings _waveSettings;
-
+    [Inject] private EnemyPoolService _enemyService;
+    
     private int _weekAmount;
     private int _giantAmount;
     private int _shooterAmount;
     private float _timeToPassWave;
     private Result _result;
-    private List<Vector3> _shooterSpawnPoints;
-    private List<Vector3> _meleeSpawnPoints;
 
-    private void Awake()
+    private void Start()
     {
-        _meleeSpawnPoints = new List<Vector3>();
-        _shooterSpawnPoints = new List<Vector3>();
         _result = new Result();
         _timeToPassWave = _waveSettings.TimeToPass;
 
-        foreach (Transform spawnPoint in _meleeEnemySpawnParent)
-        {
-            _meleeSpawnPoints.Add(spawnPoint.position);
-        }
-
-        foreach (Transform spawnPoint in _shooterEnemySpawnParent)
-        {
-            _shooterSpawnPoints.Add(spawnPoint.position);
-        }
-
         _enemyService.OnEnemyKilled += OnEnemyKilled;
         _enemyService.OnAllEnemiesDestroyed += OnWaveCleared;
+        
         _waveTimer.OnTimeDecreased += OnTimeDecreased;
-        StartTimer(_waveSettings.IntervalBetweenWaves);
+        _waveTimer.OnTimeUp += GameOver;
+        OnWaveCleared();
     }
 
     private void OnDisable()
     {
         _enemyService.OnEnemyKilled -= OnEnemyKilled;
         _enemyService.OnAllEnemiesDestroyed -= OnWaveCleared;
+        
         _waveTimer.OnTimeDecreased -= OnTimeDecreased;
     }
 
@@ -81,9 +69,7 @@ public class WaveHandler : MonoBehaviour
 
     private void StartWave()
     {
-        _enemyService.Spawn(_weekAmount, EnemyType.WeakMelee, _meleeSpawnPoints, Quaternion.identity);
-        _enemyService.Spawn(_giantAmount, EnemyType.GiantMelee, _meleeSpawnPoints, Quaternion.identity);
-        _enemyService.Spawn(_shooterAmount, EnemyType.Shooter, _shooterSpawnPoints, Quaternion.identity);
+        _spawner.SpawnEnemies(_weekAmount, _giantAmount, _shooterAmount);
         
         StartTimer(_timeToPassWave);
     }
@@ -124,7 +110,7 @@ public class WaveHandler : MonoBehaviour
         }
     }
 
-    private void OnTimeDecreased() => _result.LivedSeconds += 1;
+    private void OnTimeDecreased(float increasedTime) => _result.LivedSeconds += increasedTime;
     
     private void GameOver() => ResultScene.Load(_result);
 

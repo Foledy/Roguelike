@@ -1,6 +1,13 @@
-﻿public struct SpeedBooster : IBooster
+﻿using Zenject;
+
+public class SpeedBooster : Booster
 {
-    public float Duration { get; set; }
-    public float Multiplier { get; set; }
-    public bool IsActive { get; set; }
+    protected override void SetBoosterType()
+    {
+        _type = BoosterType.Speed;
+    }
+    
+    public class Pool : MonoMemoryPool<Booster>
+    {
+    }
 }

@@ -1,15 +1,26 @@
-﻿using Unity.Entities;
+﻿using System;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
 public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
-{ 
+{
+    private Entity _entity;
+    private EntityManager _dstManager;
+    
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new InputData());
         
         dstManager.AddComponentData(entity, new MoveData{ MoveSpeed = 12f, SprintBoost = 1.5f });
-        dstManager.AddComponentData(entity, new BoosterData());
+
+        _entity = entity;
+        _dstManager = dstManager;
+    }
+
+    private void OnDestroy()
+    {
+        _dstManager.DestroyEntity(_entity);
     }
 }
 
@@ -32,12 +43,4 @@ public struct MoveData : IComponentData
 public struct AnimationData : IComponentData
 {
     
-}
-
-public struct BoosterData : IComponentData
-{
-    public SpeedBooster SpeedBooster { get; set; }
-    public ProtectionBooster ProtectionBooster { get; set; }
-    public WeaponBooster WeaponBooster { get; set; }
-    public DamageBooster DamageBooster { get; set; }
 }

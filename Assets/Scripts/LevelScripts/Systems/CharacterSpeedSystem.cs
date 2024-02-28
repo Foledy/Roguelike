@@ -7,22 +7,19 @@ public class CharacterSpeedSystem : ComponentSystem
 
     protected override void OnCreate()
     {
-        _speedQuery = GetEntityQuery(ComponentType.ReadOnly<Character>(), ComponentType.ReadOnly<MoveData>(),
-            ComponentType.ReadOnly<BoosterData>());
+        _speedQuery = GetEntityQuery(ComponentType.ReadOnly<Character>(), ComponentType.ReadOnly<MoveData>());
     }
 
     protected override void OnUpdate()
     {
         Entities.With(_speedQuery).ForEach(
-            (Entity entity, Character character, ref MoveData moveData, ref BoosterData boosterData) =>
+            (Entity entity, Character character, ref MoveData moveData) =>
             {
-                if (boosterData.SpeedBooster.IsActive == true)
+                moveData.MoveSpeed = character.CharacterSettings.MoveSpeed;
+                
+                if (character.BoosterData.Speed.IsActive)
                 {
-                    moveData.MoveSpeed = character.CharacterSettings.MoveSpeed * boosterData.SpeedBooster.Multiplier;
-                }
-                else
-                {
-                    moveData.MoveSpeed = character.CharacterSettings.MoveSpeed;
+                    moveData.MoveSpeed *= character.BoostersParameters.Speed.SpeedMultiplier;
                 }
             });
     }

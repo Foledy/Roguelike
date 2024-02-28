@@ -1,7 +1,13 @@
-﻿public struct WeaponBooster : IBooster
+﻿using Zenject;
+
+public class WeaponBooster : Booster
 {
-    public float ReducingReloadDelay { get; set; }
-    public float ReducingAttackDelay { get; set; }
-    public float Duration { get; set; }
-    public bool IsActive { get; set; }
+    protected override void SetBoosterType()
+    {
+        _type = BoosterType.Weapon;
+    }
+    
+    public class Pool : MonoMemoryPool<Booster>
+    {
+    }
 }

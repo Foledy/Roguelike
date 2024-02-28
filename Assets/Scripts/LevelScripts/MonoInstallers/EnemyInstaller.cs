@@ -9,7 +9,7 @@ public class EnemyInstaller : MonoInstaller
     
     public override void InstallBindings()
     {
-        Container.Bind<EnemyPoolService>().AsSingle();
+        Container.Bind<EnemyPoolService>().AsSingle().NonLazy();
 
         Container.BindMemoryPool<WeekEnemy, WeekEnemy.Pool>()
             .WithInitialSize(10)

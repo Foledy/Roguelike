@@ -7,7 +7,7 @@ public class BoosterSystem : ComponentSystem
 
     protected override void OnCreate()
     {
-        _boosterQuery = GetEntityQuery(ComponentType.ReadOnly<Character>(), ComponentType.ReadOnly<BoosterData>());
+        _boosterQuery = GetEntityQuery(ComponentType.ReadOnly<Character>(), ComponentType.ReadOnly<UserInputData>());
     }
 
     protected override void OnUpdate()
@@ -15,7 +15,7 @@ public class BoosterSystem : ComponentSystem
         var deltaTime = Time.DeltaTime;
         
         Entities.With(_boosterQuery).ForEach(
-            (Entity entity, Character character, ref BoosterData boosterData) =>
+            (Entity entity, Character character) =>
             {
                 if (character.TryGetBoosterFromQueue(out BoosterType type) == true)
                 {
@@ -23,103 +23,33 @@ public class BoosterSystem : ComponentSystem
                     {
                         case BoosterType.Health:
                             character.GetComponent<HealthHandler>().AddActionToQueue(HealthActionType.Heal,
-                                character.BoostersSettings.HealthBoosterSettings.HealthRecovery);
+                                character.BoostersParameters.Health.HealthRecovery);
                             
                             break;
                         case BoosterType.Speed:
-                            var speedBooster = boosterData.SpeedBooster;
-                            
-                            speedBooster.Duration += character.BoostersSettings
-                                .SpeedBoosterSettings.SpeedBoosterDuration;
-                            speedBooster.Multiplier = character.BoostersSettings.SpeedBoosterSettings.SpeedMultiplier;
-                            speedBooster.IsActive = true;
-                            boosterData.SpeedBooster = speedBooster;
+                            character.BoosterData.ActivateBooster(
+                                character.BoostersParameters.Speed.Duration, BoosterType.Speed);
                             
                             break;
                         case BoosterType.Protection:
-                            var protectionBooster = boosterData.ProtectionBooster;
-
-                            protectionBooster.Duration += character.BoostersSettings
-                                .ProtectionBoosterSettings.ProtectionBoosterDuration;
-                            protectionBooster.Multiplier = character.BoostersSettings
-                                .ProtectionBoosterSettings.ProtectionMultiplier;
-                            protectionBooster.IsActive = true;
+                            character.BoosterData.ActivateBooster(
+                                character.BoostersParameters.Protection.Duration, BoosterType.Protection);
                             
                             break;
                         case BoosterType.Weapon:
-                            var weaponBooster = boosterData.WeaponBooster;
-
-                            weaponBooster.Duration += character.BoostersSettings.WeaponBoosterSettings
-                                .WeaponBoosterDuration;
-                            weaponBooster.ReducingAttackDelay =
-                                character.BoostersSettings.WeaponBoosterSettings.ReducingAttackDelay;
-                            weaponBooster.ReducingReloadDelay =
-                                character.BoostersSettings.WeaponBoosterSettings.ReducingReloadDelay;
-                            weaponBooster.IsActive = true;
-                            
+                            character.BoosterData.ActivateBooster(
+                                character.BoostersParameters.Weapon.Duration, BoosterType.Weapon);
+                           
                             break;
                         case BoosterType.Damage:
-                            var damageBooster = boosterData.DamageBooster;
-
-                            damageBooster.Duration += character.BoostersSettings.DamageBoosterSettings
-                                .DamageBoosterDuration;
-                            damageBooster.Multiplier =
-                                character.BoostersSettings.DamageBoosterSettings.DamageMultiplier;
-                            damageBooster.IsActive = true;
+                            character.BoosterData.ActivateBooster(
+                                character.BoostersParameters.Damage.Duration, BoosterType.Damage);
                             
                             break;
                     }
                 }
-
-                UpdateBoostersDuration(ref boosterData, deltaTime);
+                
+                character.BoosterData.UpdateBoostersDuration(deltaTime);
             });
-    }
-
-    private void UpdateBoostersDuration(ref BoosterData boosterData, float deltaTime)
-    {
-        var speed = boosterData.SpeedBooster.UpdateBooster(deltaTime);
-        var protection = boosterData.ProtectionBooster.UpdateBooster(deltaTime);
-        var weapon = boosterData.WeaponBooster.UpdateBooster(deltaTime);
-        var damage = boosterData.DamageBooster.UpdateBooster(deltaTime);
-
-        if (speed != null)
-        {
-            var booster = boosterData.SpeedBooster;
-            
-            booster.Duration = speed.Duration;
-            booster.IsActive = speed.IsActive;
-
-            boosterData.SpeedBooster = booster;
-        }
-
-        if (protection != null)
-        {
-            var booster = boosterData.ProtectionBooster;
-            
-            booster.Duration = protection.Duration;
-            booster.IsActive = protection.IsActive;
-
-            boosterData.ProtectionBooster = booster;
-        }
-
-        if (weapon != null)
-        {
-            var booster = boosterData.WeaponBooster;
-            
-            booster.Duration = weapon.Duration;
-            booster.IsActive = weapon.IsActive;
-
-            boosterData.WeaponBooster = booster;
-        }
-
-        if (damage != null)
-        {
-            var booster = boosterData.DamageBooster;
-            
-            booster.Duration = damage.Duration;
-            booster.IsActive = damage.IsActive;
-
-            boosterData.DamageBooster = booster;
-        }
     }
 }

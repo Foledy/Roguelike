@@ -11,7 +11,7 @@ public class ResultEntry : MonoBehaviour, ISceneLoadHandler<Result>
     
     public void OnSceneLoaded(Result result)
     {
-        _livedSeconds.text = $"{result.LivedSeconds}";
+        _livedSeconds.text = $"{(int)result.LivedSeconds}";
         _weekKilled.text = $"{result.WeekKilled}";
         _giantKilled.text = $"{result.GiantKilled}";
         _shooterKilled.text = $"{result.ShooterKilled}";

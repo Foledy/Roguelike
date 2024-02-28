@@ -68,22 +68,9 @@ public static class Utils
 
     public static float Max(float3 v) => Mathf.Max(v.x, Mathf.Max(v.y, v.z));
 
-    public static IBooster UpdateBooster(this IBooster booster, float deltaTime)
+    public static Booster UpdateBooster(this Booster booster, float deltaTime)
     {
-        if (booster.IsActive == true)
-        {
-            if (booster.Duration > 0)
-            {
-                booster.Duration -= deltaTime;
-            }
-            else
-            {
-                booster.Duration = 0;
-                booster.IsActive = false;
-            }
-
-            return booster;
-        }
+        
 
         return null;
     }

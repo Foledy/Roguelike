@@ -1,6 +1,13 @@
-﻿public struct ProtectionBooster : IBooster
+﻿using Zenject;
+
+public class ProtectionBooster : Booster
 {
-    public float Duration { get; set; }
-    public float Multiplier { get; set; }
-    public bool IsActive { get; set; }
+    protected override void SetBoosterType()
+    {
+        _type = BoosterType.Protection;
+    }
+    
+    public class Pool : MonoMemoryPool<Booster>
+    {
+    }
 }

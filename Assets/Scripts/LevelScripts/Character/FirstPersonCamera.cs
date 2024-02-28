@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
  
@@ -9,17 +10,15 @@ public class FirstPersonCamera : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private int _lookSpeedMouse;
-    [SerializeField] private int _jumpHeight;
-    [SerializeField] private float _gravity;
     
     private Vector2 _rotation;
-    private Collider _collider;
     private CharacterController _characterController;
+    private Transform _cameraTransform;
  
     private void Start()
     {
-        _collider = GetComponent<Collider>();
         _characterController = GetComponent<CharacterController>();
+        _cameraTransform = _camera.transform;
     }
  
     public void MouseLook(float2 input)
@@ -40,10 +39,13 @@ public class FirstPersonCamera : MonoBehaviour
     {
         var horizontal = inputData.Move.x * moveData.MoveSpeed * Time.deltaTime;
         var vertical = inputData.Move.y * Time.deltaTime;
-        var cameraTransform = _camera.transform;
         
         vertical *= inputData.Sprint == 1 ? moveData.MoveSpeed * moveData.SprintBoost : moveData.MoveSpeed;
+
+        var direction = transform.right * horizontal + transform.forward * vertical;
+        direction = _cameraTransform.TransformDirection(direction);
+        direction = new Vector3(direction.x, -9.8f, direction.z);
         
-        _characterController.Move((cameraTransform.right * horizontal + cameraTransform.forward * vertical + new Vector3(0, 0, 0)) * Time.deltaTime);
+        _characterController.Move(direction * Time.deltaTime);
     }
 }
